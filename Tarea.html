@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios con Temporizadores</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    button {
+      margin: 10px 0;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ejercicios con Temporizadores</h1>
+
+  <button onclick="mensajeConDelay()">Mostrar Mensaje</button>
+  <button onclick="iniciarCuentaRegresiva()">Iniciar Cuenta Regresiva</button>
+  <button onclick="mostrarFechaHora()">Mostrar Fecha y Hora</button>
+  <button onclick="simularPeticion()">Simular Petición de Datos</button>
+  <button onclick="detenerTemporizador()">Iniciar Tarea y Detener</button>
+
+  <div id="output">
+    <strong>Resultados:</strong>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Función para mostrar un mensaje con setTimeout
+    function mensajeConDelay() {
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Esperando 3 segundos...";
+      setTimeout(() => {
+        resultDiv.innerHTML += "<br>Hola, bienvenidos a la clase!";
+      }, 3000);
+    }
+
+    // Función para iniciar una cuenta regresiva
+    function iniciarCuentaRegresiva() {
+      let countdown = 5;
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Cuenta regresiva iniciada:<br>";
+      const countdownTimer = setInterval(() => {
+        resultDiv.innerHTML += countdown + "<br>";
+        countdown--;
+        if (countdown < 0) {
+          resultDiv.innerHTML += "¡Tiempo terminado!<br>";
+          clearInterval(countdownTimer);
+        }
+      }, 1000);
+    }
+
+    // Función para mostrar la fecha y hora actual cada segundo
+    let fechaHoraInterval;
+    function mostrarFechaHora() {
+      const resultDiv = document.getElementById("result");
+      if (fechaHoraInterval) {
+        clearInterval(fechaHoraInterval);
+        fechaHoraInterval = null;
+        resultDiv.innerHTML = "Se ha detenido la actualización de la hora.";
+        return;
+      }
+      resultDiv.innerHTML = "Mostrando fecha y hora actual:<br>";
+      fechaHoraInterval = setInterval(() => {
+        const now = new Date();
+        resultDiv.innerHTML += `Fecha y hora: ${now.toLocaleString()}<br>`;
+      }, 1000);
+    }
+
+    // Función para simular una petición de datos
+    function simularPeticion() {
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Obteniendo datos...";
+      setTimeout(() => {
+        resultDiv.innerHTML += "<br>Datos recibidos: [1, 2, 3, 4, 5]";
+      }, 2000);
+    }
+
+    // Función para iniciar una tarea que se detiene después de 5 ejecuciones
+    function detenerTemporizador() {
+      let count = 0;
+      const maxExecutions = 5;
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "Iniciando tarea...<br>";
+      const taskTimer = setInterval(() => {
+        resultDiv.innerHTML += "Ejecutando tarea...<br>";
+        count++;
+        if (count === maxExecutions) {
+          clearInterval(taskTimer);
+          resultDiv.innerHTML += "Tarea detenida automáticamente.<br>";
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
